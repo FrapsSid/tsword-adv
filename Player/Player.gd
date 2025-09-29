@@ -135,7 +135,7 @@ func update_state() -> void:
 # ----------------------------
 # Attack Settings
 # ----------------------------
-enum AttackDir { NONE, UP, DOWN, LEFT, RIGHT }
+enum AttackDir { NONE, UP, LEFT, RIGHT }
 var attack_direction := AttackDir.NONE
 var attack_timer := 0.0
 @export var attack_cooldown := 0.3
@@ -151,8 +151,6 @@ func handle_attack(delta: float) -> void:
 		# Determine direction
 		if Input.is_action_pressed("ui_up"):
 			attack_direction = AttackDir.UP
-		elif Input.is_action_pressed("ui_down"):
-			attack_direction = AttackDir.DOWN
 		else:
 			# Default to facing direction
 			attack_direction = AttackDir.LEFT if sprite.flip_h else AttackDir.RIGHT
@@ -162,34 +160,32 @@ func handle_attack(delta: float) -> void:
 func perform_attack(dir: int) -> void:
 	attack_timer = attack_cooldown
 
-	# Play animation
-	#match dir:
-		#AttackDir.UP:
-			#anim_player.play("Attack_Up")
-		#AttackDir.DOWN:
-			#anim_player.play("Attack_Down")
-		#AttackDir.LEFT:
-			#anim_player.play("Attack_Left")
-		#AttackDir.RIGHT:
-			#anim_player.play("Attack_Right")
+	# Play animation (if you want to add later)
+	# match dir:
+	# 	AttackDir.UP:
+	# 		anim_player.play("Attack_Up")
+	# 	AttackDir.LEFT:
+	# 		anim_player.play("Attack_Left")
+	# 	AttackDir.RIGHT:
+	# 		anim_player.play("Attack_Right")
 
 	# Spawn hitbox
 	spawn_attack_hitbox(dir)
 
 func spawn_attack_hitbox(dir: int) -> void:
 	var hitbox := preload("res://assets/AttackHitbox.tscn").instantiate()
-	# Add as child to player
 	add_child(hitbox)
 
 	match dir:
 		AttackDir.UP:
-			hitbox.set_direction(Vector2.UP)
-		AttackDir.DOWN:
-			hitbox.set_direction(Vector2.DOWN)
+			hitbox.position = Vector2(0, -16) # above player
+			hitbox.rotation_degrees = -90
 		AttackDir.LEFT:
-			hitbox.set_direction(Vector2.LEFT)
+			hitbox.position = Vector2(-16, 0)
+			hitbox.rotation_degrees = 180
 		AttackDir.RIGHT:
-			hitbox.set_direction(Vector2.RIGHT)
+			hitbox.position = Vector2(16, 0)
+			hitbox.rotation_degrees = 0
 
 	
 	# Play attack animation
@@ -215,6 +211,22 @@ func apply_animation() -> void:
 				#anim_player.play("Jump")
 			#States.FALL:
 				#anim_player.play("Fall")
+
+func apply_item_effect(item: Item) -> void:
+	# Apply simple dictionary-based effects
+	for stat in item.effect.keys():
+		var value = item.effect[stat]
+		match stat:
+			"move_speed": move_speed += value
+			"jump_height":
+				jump_height += value
+				gravity = (2 * jump_height) / (time_to_jump_apex * 2)
+				jump_velocity = gravity * time_to_jump_apex
+	
+	# Apply complex scripted effect
+	if item.effect_script:
+		var effect_instance = item.effect_script.new()
+		effect_instance.apply(self) # give it the player reference
 
 # ----------------------------
 # Multiplayer sync

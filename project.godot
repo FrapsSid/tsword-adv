@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Simple 2D Platformer Template"
+config/name="Two swordmen adv"
 run/main_scene="uid://bmfv4eebd2k4x"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Icon.png"
