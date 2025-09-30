@@ -26,9 +26,10 @@ class_name Player
 # ----------------------------
 # State & input
 # ----------------------------
-enum States { IDLE, RUN, JUMP, FALL }
+enum States { IDLE, RUN, JUMP, FALL, MIDAIR, ATTACK }
 var state := States.IDLE
 var last_state := States.IDLE
+var last_flip_h := false
 var jump_hold_timer := 0.0
 var horizontal_input := 0.0
 
@@ -42,28 +43,14 @@ var horizontal_input := 0.0
 # Physics process
 # ----------------------------
 func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority():
-		handle_input(delta)
-		handle_horizontal(delta)
-		handle_jump(delta)
-		apply_gravity(delta)
-		move_and_slide()
 
-	# Sync to other peers
-	rpc("sync_state", global_position, velocity, state, sprite.flip_h)
-
-	update_state()
-	apply_animation()
+	handle_input(delta)
+	handle_horizontal(delta)
+	handle_jump(delta)
+	apply_gravity(delta)
+	handle_attack(delta)
+	move_and_slide()
 	
-	if is_multiplayer_authority():
-		handle_input(delta)
-		handle_horizontal(delta)
-		handle_jump(delta)
-		apply_gravity(delta)
-		handle_attack(delta)
-		move_and_slide()
-	
-	rpc("sync_state", global_position, velocity, state, sprite.flip_h, attack_direction)
 	update_state()
 	apply_animation()
 
@@ -121,8 +108,10 @@ func apply_gravity(delta: float) -> void:
 # ----------------------------
 func update_state() -> void:
 	last_state = state
-	if is_on_floor():
-		if abs(velocity.x) < 0.1:
+	if attack_direction != AttackDir.NONE:
+		state = States.ATTACK
+	elif is_on_floor():
+		if horizontal_input == 0:
 			state = States.IDLE
 		else:
 			state = States.RUN
@@ -146,6 +135,10 @@ var attack_timer := 0.0
 func handle_attack(delta: float) -> void:
 	if attack_timer > 0:
 		attack_timer -= delta
+		return
+
+	if attack_direction != AttackDir.NONE :
+		attack_direction = AttackDir.NONE
 
 	if attack_timer <= 0 and Input.is_action_just_pressed("attack"):
 		# Determine direction
@@ -199,8 +192,14 @@ func spawn_attack_hitbox(dir: int) -> void:
 		#AttackDir.RIGHT:
 			#anim_player.play("Attack_Right")
 
+signal animation_changed(state: int, flip_h: bool, attack_dir: int)
+
 func apply_animation() -> void:
-	pass
+	# Instead of playing animations here, just notify others
+	if state != last_state or sprite.flip_h != last_flip_h:
+		last_flip_h = sprite.flip_h
+		emit_signal("animation_changed", state, sprite.flip_h, attack_direction)
+
 	#if state != last_state:
 		#match state:
 			#States.IDLE:

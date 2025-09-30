@@ -17,7 +17,10 @@ func _on_body_entered(body: Node) -> void:
 		close_door_animation()
 
 		# Teleport player immediately
-		body.global_position = target_door.global_position
+		var i = 0
+		for p in get_tree().get_nodes_in_group("player"):
+			p.global_position = target_door.global_position + Vector2(10, 0) * i
+			i += 1
 
 		# Switch to the target room's camera
 		switch_to_target_room_camera()

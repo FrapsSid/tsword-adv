@@ -1,14 +1,89 @@
-[gd_scene load_steps=2 format=3 uid="uid://cccd2yd0umkt8"]
+[gd_scene load_steps=13 format=3 uid="uid://c4lo5wpd3tqga"]
 
-[ext_resource type="PackedScene" uid="uid://bqeqis4qqoeeg" path="res://Player/Player.tscn" id="1_aofry"]
+[ext_resource type="Script" uid="uid://cfxxsqij736gn" path="res://Player/Character.gd" id="1_nf640"]
+[ext_resource type="Texture2D" uid="uid://bqy07ch6b1usm" path="res://assets/sprites/characters/yamato_attack1.png" id="2_pgf55"]
+[ext_resource type="Texture2D" uid="uid://bphk2n6w8w6kj" path="res://assets/sprites/characters/yamato_attack2.png" id="3_vgk8p"]
+[ext_resource type="Texture2D" uid="uid://cnjqjjek87n1l" path="res://assets/sprites/characters/yamato_attack3.png" id="4_7gcmi"]
+[ext_resource type="Texture2D" uid="uid://cq7172ae7noil" path="res://assets/sprites/characters/yamato_jump3.png" id="5_eni1a"]
+[ext_resource type="Texture2D" uid="uid://h6boxqvvxhlv" path="res://assets/sprites/characters/yamato_idle.png" id="6_1wikh"]
+[ext_resource type="Texture2D" uid="uid://bp2yyjnfacf3c" path="res://assets/sprites/characters/yamato_jump1.png" id="7_5qtww"]
+[ext_resource type="Texture2D" uid="uid://b0pvfumoatp6j" path="res://assets/sprites/characters/yamato_run1.png" id="8_dqmei"]
+[ext_resource type="Texture2D" uid="uid://bly844y570ece" path="res://assets/sprites/characters/yamato_jump2.png" id="8_x8s40"]
+[ext_resource type="Texture2D" uid="uid://bgxjif52lw6op" path="res://assets/sprites/characters/yamato_run2.png" id="9_i0i31"]
+[ext_resource type="PackedScene" uid="uid://bqeqis4qqoeeg" path="res://Player/Player.tscn" id="10_ik0yd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x8s40"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pgf55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vgk8p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7gcmi")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_eni1a")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1wikh")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_5qtww")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_x8s40")
+}],
+"loop": true,
+"name": &"Midair",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_dqmei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_i0i31")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
 
 [node name="Yamamoto" type="Node2D"]
+script = ExtResource("1_nf640")
 
-[node name="Player" parent="." instance=ExtResource("1_aofry")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(0.02, 0.02)
+sprite_frames = SubResource("SpriteFrames_x8s40")
+animation = &"Midair"
+
+[node name="Player" parent="." instance=ExtResource("10_ik0yd")]
 
 [node name="Sprite2D" parent="Player" index="1"]
 visible = false
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
 [editable path="Player"]
