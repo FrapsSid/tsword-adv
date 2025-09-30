@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cccd2yd0umkt8"]
+
+[ext_resource type="PackedScene" uid="uid://bqeqis4qqoeeg" path="res://Player/Player.tscn" id="1_aofry"]
+
+[node name="Yamamoto" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_aofry")]
+
+[node name="Sprite2D" parent="Player" index="1"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[editable path="Player"]
