@@ -173,7 +173,7 @@ func perform_attack(dir: int) -> void:
 	spawn_attack_hitbox(dir)
 
 func spawn_attack_hitbox(dir: int) -> void:
-	var hitbox := preload("res://assets/AttackHitbox.tscn").instantiate()
+	var hitbox := preload("res://resources/attack_hitbox/AttackHitbox.tscn").instantiate()
 	add_child(hitbox)
 
 	match dir:

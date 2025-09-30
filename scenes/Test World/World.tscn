@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmfv4eebd2k4x"]
+
+[ext_resource type="PackedScene" uid="uid://bqeqis4qqoeeg" path="res://Player/Player.tscn" id="2_lifi7"]
+[ext_resource type="Texture2D" uid="uid://bxy1bh06yh0pa" path="res://assets/sprites/background/dungeon_plain_wall_just_wall_b.jpeg" id="2_un701"]
+[ext_resource type="PackedScene" uid="uid://da7s5nahyfn25" path="res://resources/rooms/room.tscn" id="3_kfxt1"]
+[ext_resource type="PackedScene" uid="uid://csth08ghbtj1h" path="res://resources/rooms/big_room.tscn" id="3_md3ak"]
+
+[node name="World" type="Node2D"]
+position = Vector2(147, 119)
+
+[node name="Room" parent="." instance=ExtResource("3_kfxt1")]
+
+[node name="Background" parent="Room" index="0"]
+position = Vector2(0, 2.1999965)
+scale = Vector2(0.4, 0.34453127)
+texture = ExtResource("2_un701")
+
+[node name="Exit" parent="Room/Doors" index="0" node_paths=PackedStringArray("target_room", "target_door")]
+target_room = NodePath("../../../BigRoom/Room")
+target_door = NodePath("../../../BigRoom/Room/Doors/Enterance")
+
+[node name="BigRoom" parent="." instance=ExtResource("3_md3ak")]
+position = Vector2(1191, -200)
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["camera"]]
+position_smoothing_speed = 1.0
+
+[node name="Player" parent="." instance=ExtResource("2_lifi7")]
+
+[editable path="Room"]
+[editable path="BigRoom"]
+[editable path="BigRoom/Room"]
