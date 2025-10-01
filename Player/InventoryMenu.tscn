@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://6pandr8ui1st"]
+
+[ext_resource type="Script" uid="uid://b2ngrioskgd78" path="res://Player/inventory_menu.gd" id="1_bnm4o"]
+
+[node name="InventoryMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bnm4o")
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 0
+offset_right = 531.0
+offset_bottom = 399.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 535.0
+offset_bottom = 496.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 405.0
+offset_right = 428.0
+offset_bottom = 496.0
