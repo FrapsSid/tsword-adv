@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://da7s5nahyfn25"]
 
-[ext_resource type="Texture2D" uid="uid://f063kja885ab" path="res://assets/sprites/Dungeon Tile Set.png" id="1_2ihbe"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Dungeon Tile Set.png" id="1_2ihbe"]
 [ext_resource type="Script" uid="uid://4nonghmts58c" path="res://resources/rooms/room_scripts/camera_bounds.gd" id="2_pmtbo"]
-[ext_resource type="Script" uid="uid://cgom07nuk057n" path="res://resources/rooms/door.gd" id="3_ya37f"]
+[ext_resource type="Script" uid="uid://cgom07nuk057n" path="res://resources/rooms/room_scripts/door.gd" id="3_ya37f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdpgb"]
 texture = ExtResource("1_2ihbe")
