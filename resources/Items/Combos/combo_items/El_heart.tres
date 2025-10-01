@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c0jgki82m2v2x"]
+
+[ext_resource type="Script" uid="uid://c3vyapb5dfy8v" path="res://resources/Items/Combos/item_effect/El_Heart.gd" id="1_axw3e"]
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_uwef3"]
+
+[resource]
+script = ExtResource("1_uwef3")
+effect_script = ExtResource("1_axw3e")
+metadata/_custom_type_script = "uid://b3hrdl4uub34p"

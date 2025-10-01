@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bncltwv6e8gkq"]
+
+[ext_resource type="Script" uid="uid://c7awr066qukqf" path="res://resources/Items/Combos/item_effect/WaterHeart.gd" id="1_8abtj"]
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_inibl"]
+
+[resource]
+script = ExtResource("1_inibl")
+effect_script = ExtResource("1_8abtj")
+metadata/_custom_type_script = "uid://b3hrdl4uub34p"

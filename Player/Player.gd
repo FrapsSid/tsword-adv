@@ -1,10 +1,13 @@
 extends CharacterBody2D
 class_name Player
 
+@export var max_hp := 3
+@export var hp := 3
+
 # ----------------------------
 # Movement Settings
 # ----------------------------
-@export var move_speed := 200.0
+@export var move_speed := 100.0
 @export var acceleration := 15.0
 @export var friction := 0.2
 
@@ -50,7 +53,6 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 	# Sync to other peers
-	rpc("sync_state", global_position, velocity, state, sprite.flip_h)
 
 	update_state()
 	apply_animation()
@@ -63,7 +65,6 @@ func _physics_process(delta: float) -> void:
 		handle_attack(delta)
 		move_and_slide()
 	
-	rpc("sync_state", global_position, velocity, state, sprite.flip_h, attack_direction)
 	update_state()
 	apply_animation()
 
@@ -212,29 +213,35 @@ func apply_animation() -> void:
 			#States.FALL:
 				#anim_player.play("Fall")
 
-func apply_item_effect(item: Item) -> void:
-	# Apply simple dictionary-based effects
-	for stat in item.effect.keys():
-		var value = item.effect[stat]
-		match stat:
-			"move_speed": move_speed += value
-			"jump_height":
-				jump_height += value
-				gravity = (2 * jump_height) / (time_to_jump_apex * 2)
-				jump_velocity = gravity * time_to_jump_apex
-	
-	# Apply complex scripted effect
-	if item.effect_script:
-		var effect_instance = item.effect_script.new()
-		effect_instance.apply(self) # give it the player reference
+# ----------------------------
+# Item System
+# ----------------------------
 
-# ----------------------------
-# Multiplayer sync
-# ----------------------------
-@rpc("unreliable")
-func sync_state(pos: Vector2, net_velocity: Vector2, net_state: int, flip_h: bool) -> void:
-	if not is_multiplayer_authority():
-		global_position = pos
-		velocity = net_velocity
-		state = net_state
-		sprite.flip_h = flip_h
+@onready var inventory: Inventory = Inventory.new(self)
+
+func pickup_item(item: Item) -> void:
+	inventory.add_item(item)
+
+func drop_item(item: Item) -> void:
+	inventory.remove_item(item)
+
+var active_effects: Array[ItemEffect] = []
+
+func add_item_effect(effect: ItemEffect):
+	if effect not in active_effects:
+		active_effects.append(effect)
+		effect.apply(self)
+
+func remove_item_effect(effect: ItemEffect):
+	if effect in active_effects:
+		active_effects.erase(effect)
+		effect.remove(self)
+		
+@onready var inventory_menu: InventoryMenu = $UI/InventoryMenu
+
+func _process(delta):
+	if Input.is_action_just_pressed("inventory"):
+		if inventory_menu.visible:
+			inventory_menu.close()
+		else:
+			inventory_menu.open()
