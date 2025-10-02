@@ -18,7 +18,12 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
+	print (body)
+	if body is EnemyTemplate:
+		return
+
 	if body is Player:
 		body.take_damage(damage)
 		body.knockback_from(global_position, attack_knockback_scale)
-		queue_free()
+	
+	queue_free()

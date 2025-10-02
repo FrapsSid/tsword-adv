@@ -147,5 +147,34 @@ func knockback_in_dir(direction: Vector2, scale: float = 1.0):
 	velocity_target = Vector2.ZERO
 	stun_timer = stun_duration
 	
+# ----------------------------
+# Death System
+# ----------------------------
+
+@export var death_sprite_scene: PackedScene  # optional: scene to spawn on death
+@export var death_duration: float = 0.5      # how long death sprite stays
+
 func take_damage(dmg: int):
 	hp = max(0, hp - dmg)
+	if hp <= 0:
+		die()
+		
+func die():
+	# Spawn death sprite before removing parent
+	if death_sprite_scene:
+		var death_sprite = death_sprite_scene.instantiate()
+		get_tree().current_scene.add_child(death_sprite)
+		death_sprite.global_position = global_position
+
+		
+		# Make sprite disappear after death_duration
+		var t = Timer.new()
+		t.wait_time = death_duration
+		t.one_shot = true
+		t.connect("timeout", Callable(death_sprite, "queue_free"))
+		death_sprite.add_child(t)
+		t.start()
+	
+	# Remove the whole mob (parent node)
+	if is_instance_valid(get_parent()):
+		get_parent().die()

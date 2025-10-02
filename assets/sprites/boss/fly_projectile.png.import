@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjnsrxcgk4uxn"
-path="res://.godot/imported/p2.png-35deedbc634f0e9f3fcca04f19d3ddc2.ctex"
+uid="uid://btl6ecfd5wyut"
+path="res://.godot/imported/fly_projectile.png-5fbff018266b817dbdc46c3c6a6a0f72.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tileset/p2.png"
-dest_files=["res://.godot/imported/p2.png-35deedbc634f0e9f3fcca04f19d3ddc2.ctex"]
+source_file="res://assets/sprites/boss/fly_projectile.png"
+dest_files=["res://.godot/imported/fly_projectile.png-5fbff018266b817dbdc46c3c6a6a0f72.ctex"]
 
 [params]
 

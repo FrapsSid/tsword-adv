@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dnbam4ncmnxt0"]
 
 [ext_resource type="PackedScene" uid="uid://mbkaefhe28ul" path="res://resources/enemies/enemy_template.tscn" id="1_ej2cq"]
-[ext_resource type="Script" uid="uid://b54ea4fwhpmpe" path="res://resources/enemies/mobs/hedgehog.gd" id="1_vgubw"]
+[ext_resource type="Script" uid="uid://b54ea4fwhpmpe" path="res://resources/enemies/mob_scripts/mob_target_system.gd" id="1_vgubw"]
 [ext_resource type="Texture2D" uid="uid://dkj5qgox8gk3s" path="res://assets/sprites/enemies/hedgehod1.png" id="2_g36xf"]
 [ext_resource type="Texture2D" uid="uid://cleueu0rauqma" path="res://assets/sprites/enemies/hedgehog2.png" id="3_vgubw"]
 [ext_resource type="Script" uid="uid://ci2udwcrmrn1s" path="res://resources/enemies/enemy_animation.gd" id="5_q76d3"]
@@ -33,7 +33,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Hedgehog" type="Node2D"]
+[node name="Hedgehog" type="Node2D" groups=["mobs"]]
 script = ExtResource("1_vgubw")
 
 [node name="EnemyTemplate" parent="." instance=ExtResource("1_ej2cq")]

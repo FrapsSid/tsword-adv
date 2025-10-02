@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://b7wptm4famvjd"]
+
+[ext_resource type="PackedScene" uid="uid://mbkaefhe28ul" path="res://resources/enemies/enemy_template.tscn" id="1_fm1kp"]
+[ext_resource type="Script" uid="uid://b54ea4fwhpmpe" path="res://resources/enemies/mob_scripts/mob_target_system.gd" id="1_xiuvv"]
+[ext_resource type="Texture2D" uid="uid://cb0gl35tivvjs" path="res://assets/sprites/boss/fly_idle1.png" id="2_0phji"]
+[ext_resource type="Texture2D" uid="uid://by5ns3or6jc6u" path="res://assets/sprites/boss/fly_idle2.png" id="3_3im2p"]
+[ext_resource type="Texture2D" uid="uid://rat7em23t2ao" path="res://assets/sprites/boss/fly_idle3.png" id="4_xiuvv"]
+[ext_resource type="Texture2D" uid="uid://cdrmqrqb7lw4g" path="res://assets/sprites/boss/fly_idle4.png" id="5_u5bll"]
+[ext_resource type="Texture2D" uid="uid://j2ic2w6bd2qk" path="res://assets/sprites/boss/fly_move1.png" id="6_rjbno"]
+[ext_resource type="Texture2D" uid="uid://vhyobeoad7xd" path="res://assets/sprites/boss/fly_move2.png" id="7_543oe"]
+[ext_resource type="Script" uid="uid://ci2udwcrmrn1s" path="res://resources/enemies/enemy_animation.gd" id="9_u5bll"]
+[ext_resource type="Script" uid="uid://byidqke47oti0" path="res://resources/enemies/boss/fly_muzzle.gd" id="10_xiuvv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3im2p"]
+resource_local_to_scene = true
+radius = 16.0
+height = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sq8fk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0phji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3im2p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xiuvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_u5bll")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rjbno")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_543oe")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
+
+[node name="Fly" type="Node2D" groups=["mobs"]]
+script = ExtResource("1_xiuvv")
+
+[node name="EnemyTemplate" parent="." instance=ExtResource("1_fm1kp")]
+is_flying_mob = true
+attack_knockback_scale = 4
+
+[node name="CollisionShape2D" parent="EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_3im2p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+sprite_frames = SubResource("SpriteFrames_sq8fk")
+animation = &"Move"
+script = ExtResource("9_u5bll")
+
+[node name="Target" type="Marker2D" parent="." groups=["target"]]
+
+[node name="Muzzle" type="Node2D" parent="."]
+script = ExtResource("10_xiuvv")
+
+[node name="RayCast2D" type="RayCast2D" parent="Muzzle"]
+target_position = Vector2(0, 600)
+
+[editable path="EnemyTemplate"]

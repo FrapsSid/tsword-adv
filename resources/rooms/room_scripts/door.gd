@@ -2,13 +2,29 @@ extends Area2D
 
 @export var target_room: Node       # Room node to enter
 @export var target_door: Node       # Destination door node
+@export var mobs_room: Node         # Find all mobs in this room
 @export var tween_duration := 0.5   # Camera pan time
 
-var is_locked := false
+var is_locked := true
+var mobs_in_room: Array = []
 
 func _ready():
-	# Signal connection is already defined in the scene file
-	pass
+	if not mobs_room:
+		is_locked = false
+		return
+	for child in mobs_room.get_children():
+		if child.is_in_group("mobs"):
+			mobs_in_room.push_back(child)
+			if child.has_signal("died"):
+				child.connect("died", Callable(self, "_on_mob_died"))
+	print(mobs_in_room)
+	if mobs_in_room.is_empty():
+		is_locked = false
+
+func _on_mob_died(mob):
+	mobs_in_room.erase(mob)
+	if mobs_in_room.is_empty():
+		is_locked = false
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player and not is_locked:
