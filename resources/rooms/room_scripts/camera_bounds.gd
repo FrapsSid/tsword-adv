@@ -21,8 +21,6 @@ func _on_body_entered(body: Node2D) -> void:
 			fit_camera_to_rectangle(camera, $CollisionShape2D.shape, $CollisionShape2D.scale)
 
 func fit_camera_to_rectangle(camera: Camera2D, rect_shape: RectangleShape2D, shape_scale: Vector2) -> void:
-	print("happened")
-
 	# Apply scale to extents → actual world size
 	var rect_size: Vector2 = rect_shape.extents * 2 * shape_scale.abs()
 	var viewport_size: Vector2 = camera.get_viewport_rect().size
@@ -34,7 +32,6 @@ func fit_camera_to_rectangle(camera: Camera2D, rect_shape: RectangleShape2D, sha
 	# Use the smaller scale so the whole rect fits
 	var scale = min(scale_x, scale_y)
 
-	print(scale, viewport_size, scale_x, scale_y, scale)
 
 	# Apply zoom (inverse of scale)
 	camera.zoom = Vector2(scale, scale)
