@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bmfv4eebd2k4x"]
+[gd_scene load_steps=15 format=4 uid="uid://bmfv4eebd2k4x"]
 
 [ext_resource type="Texture2D" uid="uid://bs34aqcca0wuv" path="res://assets/sprites/background/photo_2025-09-30_20-35-17.jpg" id="2_71sv1"]
 [ext_resource type="PackedScene" uid="uid://da7s5nahyfn25" path="res://resources/rooms/room.tscn" id="3_kfxt1"]
@@ -8,16 +8,28 @@
 [ext_resource type="PackedScene" uid="uid://c4lo5wpd3tqga" path="res://Player/Yamamoto.tscn" id="5_71sv1"]
 [ext_resource type="PackedScene" uid="uid://dnbam4ncmnxt0" path="res://resources/enemies/mobs/hedgehog.tscn" id="5_wrp70"]
 [ext_resource type="PackedScene" uid="uid://b8s6llh6c8tfr" path="res://resources/enemies/mobs/bee.tscn" id="6_lp8fp"]
+[ext_resource type="PackedScene" uid="uid://dp5afmlut6s85" path="res://resources/enemies/mobs/slime.tscn" id="6_tvfhq"]
+[ext_resource type="PackedScene" uid="uid://c77pahnkbqcqv" path="res://resources/enemies/mobs/golbin.tscn" id="8_ie5dj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tvfhq"]
+resource_local_to_scene = true
+radius = 7.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ie5dj"]
+resource_local_to_scene = true
+radius = 9.0
+height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrp70"]
 resource_local_to_scene = true
 radius = 7.0
 height = 14.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tvfhq"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6liuk"]
 resource_local_to_scene = true
-radius = 7.0
-height = 14.0
+radius = 6.0
+height = 18.0
 
 [node name="World" type="Node2D"]
 position = Vector2(147, 119)
@@ -46,15 +58,6 @@ tile_map_data = PackedByteArray("AAD//wQAAAABAAIAAAAAAAQAAAADAAIAAAD//wUAAAABAAI
 target_room = NodePath("../../../../BigRoom2/Room")
 target_door = NodePath("../../../../BigRoom2/Room/Doors/Enterance")
 
-[node name="Hedgehog" parent="BigRoom" instance=ExtResource("5_wrp70")]
-position = Vector2(96, -57)
-
-[node name="CollisionShape2D" parent="BigRoom/Hedgehog/EnemyTemplate" index="0"]
-shape = SubResource("CapsuleShape2D_wrp70")
-
-[node name="Marker2D2" type="Marker2D" parent="BigRoom/Hedgehog" groups=["target"]]
-position = Vector2(-197, -1)
-
 [node name="Bee" parent="BigRoom" instance=ExtResource("6_lp8fp")]
 position = Vector2(50, 11)
 
@@ -62,7 +65,8 @@ position = Vector2(50, 11)
 shape = SubResource("CapsuleShape2D_tvfhq")
 
 [node name="Muzzle" parent="BigRoom/Bee" index="3"]
-aim_at_player = NodePath("../../../Rafael/Player")
+aim_at_player1 = NodePath("../../../Yamamoto/Player")
+aim_at_player2 = NodePath("../../../Rafael/Player")
 
 [node name="Target2" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
 position = Vector2(188, 0)
@@ -72,6 +76,15 @@ position = Vector2(162, 103)
 
 [node name="Target4" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
 position = Vector2(5, 101)
+
+[node name="Slime" parent="BigRoom" instance=ExtResource("6_tvfhq")]
+position = Vector2(83, -59)
+
+[node name="CollisionShape2D" parent="BigRoom/Slime/EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_ie5dj")
+
+[node name="Target2" type="Marker2D" parent="BigRoom/Slime" groups=["target"]]
+position = Vector2(-156, 1)
 
 [node name="BigRoom2" parent="." instance=ExtResource("3_md3ak")]
 position = Vector2(1240, -79)
@@ -89,6 +102,24 @@ target_door = NodePath("../../../../BigRoom3/Room/Doors/Enterance")
 
 [node name="Enterance" parent="BigRoom2/Room/Doors" index="1"]
 position = Vector2(-264.00003, -113)
+
+[node name="Hedgehog" parent="BigRoom2" instance=ExtResource("5_wrp70")]
+position = Vector2(123, -1)
+
+[node name="CollisionShape2D" parent="BigRoom2/Hedgehog/EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_wrp70")
+
+[node name="Marker2D2" type="Marker2D" parent="BigRoom2/Hedgehog" groups=["target"]]
+position = Vector2(-197, -1)
+
+[node name="Golbin" parent="BigRoom2" instance=ExtResource("8_ie5dj")]
+position = Vector2(130, -93)
+
+[node name="CollisionShape2D" parent="BigRoom2/Golbin/EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_6liuk")
+
+[node name="Target2" type="Marker2D" parent="BigRoom2/Golbin" groups=["target"]]
+position = Vector2(-314, -3)
 
 [node name="BigRoom3" parent="." instance=ExtResource("3_md3ak")]
 position = Vector2(1944, -80)
@@ -116,12 +147,16 @@ position = Vector2(311, -68)
 [editable path="Room"]
 [editable path="BigRoom"]
 [editable path="BigRoom/Room"]
-[editable path="BigRoom/Hedgehog"]
-[editable path="BigRoom/Hedgehog/EnemyTemplate"]
 [editable path="BigRoom/Bee"]
 [editable path="BigRoom/Bee/EnemyTemplate"]
+[editable path="BigRoom/Slime"]
+[editable path="BigRoom/Slime/EnemyTemplate"]
 [editable path="BigRoom2"]
 [editable path="BigRoom2/Room"]
+[editable path="BigRoom2/Hedgehog"]
+[editable path="BigRoom2/Hedgehog/EnemyTemplate"]
+[editable path="BigRoom2/Golbin"]
+[editable path="BigRoom2/Golbin/EnemyTemplate"]
 [editable path="BigRoom3"]
 [editable path="BigRoom3/Room"]
 [editable path="Rafael"]
