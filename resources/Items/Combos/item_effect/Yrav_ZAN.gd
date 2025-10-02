@@ -15,13 +15,11 @@ func remove(player):
 		timer.queue_free()
 
 func _spawn_enemy(player):
-	var enemy = preload("res://scenes/FlyingEnemy.tscn").instantiate()
+	var enemy = preload("res://resources/enemies/mobs/ODbee.tscn").instantiate()
+	enemy.target = player
 	var root = player.get_tree().current_scene
 	root.add_child(enemy)
 
 	# spawn off-screen
 	var spawn_offset = Vector2(randf_range(-800, 800), randf_range(-600, -400))
 	enemy.global_position = player.global_position + spawn_offset
-
-	# fly toward player
-	enemy.target = player
