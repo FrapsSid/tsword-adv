@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kspd1o0e75wc"
-path="res://.godot/imported/p3.png-2e7958e2232166124c0a9550e22cb795.ctex"
+uid="uid://cxqgsrkb5mo6d"
+path="res://.godot/imported/Mask1.png-c6cd88641bb9b708c6588b4f384b0e01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tileset/p3.png"
-dest_files=["res://.godot/imported/p3.png-2e7958e2232166124c0a9550e22cb795.ctex"]
+source_file="res://assets/sprites/tileset/Mask1.png"
+dest_files=["res://.godot/imported/Mask1.png-c6cd88641bb9b708c6588b4f384b0e01.ctex"]
 
 [params]
 
