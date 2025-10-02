@@ -18,6 +18,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
+	print (body)
 	if body is EnemyTemplate:
 		return
 

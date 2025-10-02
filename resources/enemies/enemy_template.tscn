@@ -7,7 +7,7 @@
 resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4cd8"]
-size = Vector2(18, 18)
+size = Vector2(46, 40)
 
 [node name="EnemyTemplate" type="CharacterBody2D"]
 script = ExtResource("1_q4cd8")

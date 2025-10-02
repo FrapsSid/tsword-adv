@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=12 format=3 uid="uid://bjcx5dwgi3nyo"]
 
-[ext_resource type="Shader" uid="uid://gxogqk0pm033" path="res://assets/sprites/tileset/Tileshader.gdshader" id="1_dc7wm"]
+[ext_resource type="Shader" path="res://assets/sprites/tileset/Tileshader.gdshader" id="1_dc7wm"]
 [ext_resource type="Texture2D" uid="uid://hcaextuafxqx" path="res://assets/sprites/tileset/Mask1Clean.png" id="2_rys5b"]
 [ext_resource type="Texture2D" uid="uid://c3bq6vyhyf6ws" path="res://assets/sprites/tileset/Tiles2.png" id="3_1nd8j"]
 [ext_resource type="Texture2D" uid="uid://2b8w4n4edmm" path="res://assets/sprites/tileset/Mask2Clean.png" id="4_lqxmr"]
