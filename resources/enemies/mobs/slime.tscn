@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://dp5afmlut6s85"]
+
+[ext_resource type="PackedScene" uid="uid://mbkaefhe28ul" path="res://resources/enemies/enemy_template.tscn" id="1_avump"]
+[ext_resource type="Script" uid="uid://b54ea4fwhpmpe" path="res://resources/enemies/mob_scripts/mob_target_system.gd" id="1_r25c5"]
+[ext_resource type="Script" uid="uid://bs32o4dm6enxw" path="res://resources/enemies/mob_scripts/slime.gd" id="2_r25c5"]
+[ext_resource type="Texture2D" uid="uid://cdau7qriondh6" path="res://assets/sprites/enemies/slime_idle1.png" id="4_5e55k"]
+[ext_resource type="Texture2D" uid="uid://cjbo6wqx5q0u8" path="res://assets/sprites/enemies/slime_idle2.png" id="5_kpar3"]
+[ext_resource type="Texture2D" uid="uid://bpua3vnrmowns" path="res://assets/sprites/enemies/slime_jump1.png" id="6_1xumf"]
+[ext_resource type="Texture2D" uid="uid://bhdm5tfm3ruwb" path="res://assets/sprites/enemies/slime_jump2.png" id="7_1yj4o"]
+[ext_resource type="Texture2D" uid="uid://dsh8r3kp3roam" path="res://assets/sprites/enemies/slime_jump3.png" id="8_qaojw"]
+[ext_resource type="Script" uid="uid://b04s50u3s45qs" path="res://resources/enemies/mob_scripts/slime_animation.gd" id="9_kpar3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kpar3"]
+resource_local_to_scene = true
+radius = 9.0
+height = 18.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_64jre"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5e55k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kpar3")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1xumf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1yj4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_qaojw")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}]
+
+[node name="Slime" type="Node2D" groups=["mobs"]]
+script = ExtResource("1_r25c5")
+
+[node name="EnemyTemplate" parent="." instance=ExtResource("1_avump")]
+script = ExtResource("2_r25c5")
+jump_force = -400.0
+jump_interval = 1.5
+jump_horizontal_speed = 100.0
+
+[node name="CollisionShape2D" parent="EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_kpar3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.02, 0.02)
+sprite_frames = SubResource("SpriteFrames_64jre")
+animation = &"Jump"
+script = ExtResource("9_kpar3")
+
+[node name="Target" type="Marker2D" parent="." groups=["target"]]
+
+[editable path="EnemyTemplate"]

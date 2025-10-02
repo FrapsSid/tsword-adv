@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpsu06l2xx1hh"
-path="res://.godot/imported/goblin1.png-34370ac0349c8bd69a3ba0f74198ca70.ctex"
+uid="uid://det7yc86ks22t"
+path="res://.godot/imported/Mask3Clean.png-db3f691518f82c553166d5f02ba69fda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/goblin1.png"
-dest_files=["res://.godot/imported/goblin1.png-34370ac0349c8bd69a3ba0f74198ca70.ctex"]
+source_file="res://assets/sprites/tileset/Mask3Clean.png"
+dest_files=["res://.godot/imported/Mask3Clean.png-db3f691518f82c553166d5f02ba69fda.ctex"]
 
 [params]
 

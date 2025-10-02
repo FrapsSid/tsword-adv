@@ -1,4 +1,5 @@
-extends Node2D
+extends MobBase
+class_name MobTargetSystem
 
 
 @onready var enemy = $EnemyTemplate
@@ -10,7 +11,7 @@ func _ready() -> void:
 	for child in get_children():
 		if child.is_in_group("target"):
 			targets.append(child)
-
+			
 func _physics_process(_delta: float) -> void:
 	if targets.size() == 0:
 		return
