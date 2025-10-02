@@ -3,11 +3,11 @@ extends ItemEffect
 var connection
 
 func apply(player):
-	connection = player.connect("took_damage", Callable(self, "_on_damage").bind(player))
+	connection = player.connect("damaged", Callable(self, "_on_damage").bind(player))
 
 func remove(player):
 	if connection:
-		player.disconnect("took_damage", connection)
+		player.disconnect("damaged", connection)
 
 func _on_damage(player):
 	player.set_physics_process(false)

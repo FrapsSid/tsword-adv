@@ -110,8 +110,14 @@ position_smoothing_speed = 1.0
 [node name="Rafael" parent="." instance=ExtResource("4_md3ak")]
 position = Vector2(476, -148)
 
+[node name="Player" parent="Rafael" index="1"]
+player_id = 2
+
 [node name="Yamamoto" parent="." instance=ExtResource("5_71sv1")]
 position = Vector2(311, -68)
+
+[node name="Player" parent="Yamamoto" index="1"]
+player_id = 1
 
 [editable path="Room"]
 [editable path="BigRoom"]
@@ -126,5 +132,7 @@ position = Vector2(311, -68)
 [editable path="BigRoom3/Room"]
 [editable path="Rafael"]
 [editable path="Rafael/Player"]
+[editable path="Rafael/Player/UI/Health"]
 [editable path="Yamamoto"]
 [editable path="Yamamoto/Player"]
+[editable path="Yamamoto/Player/UI/Health"]

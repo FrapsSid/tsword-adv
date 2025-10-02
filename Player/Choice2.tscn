@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://da08s8jt18e5e"]
+
+[ext_resource type="Script" uid="uid://4kchaug4ioux" path="res://Player/choice.gd" id="1_anik1"]
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="2_6jqgk"]
+[ext_resource type="Texture2D" uid="uid://c2jfm0bm6djll" path="res://assets/sprites/items/aquarius_jug.png" id="2_anik1"]
+[ext_resource type="Resource" uid="uid://bftbsy4xqflka" path="res://resources/Items/Individual Dummies/Jug.tres" id="3_th72y"]
+[ext_resource type="Texture2D" uid="uid://d0vp777g3pma0" path="res://assets/sprites/items/electrophoresis.png" id="3_wl6i4"]
+[ext_resource type="Texture2D" uid="uid://7j2d1wsrxjdu" path="res://assets/sprites/items/gorgon_eye.png" id="4_6jqgk"]
+[ext_resource type="Resource" uid="uid://c2gjxvftuxvr8" path="res://resources/Items/Individual Dummies/Elfor.tres" id="4_th72y"]
+[ext_resource type="Resource" uid="uid://bgjio5lvgfohl" path="res://resources/Items/Individual Dummies/Eye.tres" id="5_685nd"]
+[ext_resource type="Texture2D" uid="uid://byq10rpx2n7m6" path="res://assets/sprites/items/ice_giant_heart.png" id="5_th72y"]
+[ext_resource type="Resource" uid="uid://k7mtcn61al56" path="res://resources/Items/Individual Dummies/Heart.tres" id="6_jxw5s"]
+
+[node name="Choice" type="CanvasLayer"]
+script = ExtResource("1_anik1")
+group1_items = Array[ExtResource("2_6jqgk")]([ExtResource("3_th72y"), ExtResource("4_th72y")])
+group2_items = Array[ExtResource("2_6jqgk")]([ExtResource("5_685nd"), ExtResource("6_jxw5s")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.105882354, 0.16078432, 0.60784316, 0.1764706)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="all" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="left" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot1" type="Control" parent="all/left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left/Slot1"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 135.0
+offset_right = 563.0
+offset_bottom = 507.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_anik1")
+
+[node name="CheckBox1" type="CheckBox" parent="all/left/Slot1"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 189.0
+offset_right = 450.0
+offset_bottom = 220.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Slot2" type="Control" parent="all/left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left/Slot2"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 108.0
+offset_right = 586.0
+offset_bottom = 548.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wl6i4")
+
+[node name="CheckBox2" type="CheckBox" parent="all/left/Slot2"]
+layout_mode = 0
+offset_left = 436.00003
+offset_top = 182.0
+offset_right = 460.00003
+offset_bottom = 213.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "
+"
+
+[node name="center_dummy" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.41
+
+[node name="left2" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot1" type="Control" parent="all/left2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left2/Slot1"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 135.0
+offset_right = 563.0
+offset_bottom = 507.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_6jqgk")
+
+[node name="CheckBox3" type="CheckBox" parent="all/left2/Slot1"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 189.0
+offset_right = 450.0
+offset_bottom = 220.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Slot2" type="Control" parent="all/left2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left2/Slot2"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 108.0
+offset_right = 586.0
+offset_bottom = 548.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_th72y")
+
+[node name="CheckBox4" type="CheckBox" parent="all/left2/Slot2"]
+layout_mode = 0
+offset_left = 436.00003
+offset_top = 182.0
+offset_right = 460.00003
+offset_bottom = 213.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "
+"

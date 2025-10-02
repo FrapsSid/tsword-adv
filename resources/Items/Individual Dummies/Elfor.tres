@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c2gjxvftuxvr8"]
+
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_ieb26"]
+[ext_resource type="Texture2D" uid="uid://d0vp777g3pma0" path="res://assets/sprites/items/electrophoresis.png" id="1_lct35"]
+
+[resource]
+script = ExtResource("1_ieb26")
+icon = ExtResource("1_lct35")
+metadata/_custom_type_script = "uid://b3hrdl4uub34p"

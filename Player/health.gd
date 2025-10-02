@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-var player_id: int = 2
+@export var player: Player
 @export var max_hp: int = 3
 @export var heart_full: Texture2D
 @export var heart_empty: Texture2D
@@ -8,7 +8,7 @@ var player_id: int = 2
 var hearts: Array[TextureRect] = []
 
 func _ready():
-	if player_id == 2:
+	if player.player_id == 2:
 		self.position.x += 1300
 	# Clear any existing children
 	for child in get_children():
@@ -27,6 +27,11 @@ func _ready():
 		add_child(heart)
 		hearts.append(heart)
 	update_health(max_hp)
+	if player:
+		player.connect("damaged", Callable(self, "_on_player_damaged"))
+
+func _on_player_damaged(player, new_hp: int):
+	update_health(new_hp)
 
 func update_health(current_hp: int):
 	for i in range(hearts.size()):

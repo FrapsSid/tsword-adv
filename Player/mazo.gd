@@ -4,15 +4,18 @@ signal bar_empty_tick
 # Config
 @export var drain_per_second: int = 1
 @export var empty_signal_interval: float = 5.0
-@export var player: Player
+@export var refill_on_damage: int = 10
 
 # Internal
 var current_value: int
 var _drain_timer: float = 0.0
 var _empty_timer: float = 0.0
 
-func wake(new_player: Node):
+func wake():
 	set_process(true)
+	visible = true
+	current_value = max_value
+	value = current_value
 
 func _ready():
 	visible = false
@@ -20,7 +23,6 @@ func _ready():
 	self.size = Vector2(1, 100)
 	current_value = max_value
 	value = current_value
-	set_process(true)
 
 func _process(delta):
 	if current_value > 0:
@@ -35,3 +37,8 @@ func _process(delta):
 		if _empty_timer >= empty_signal_interval:
 			_empty_timer = 0.0
 			emit_signal("bar_empty_tick")
+
+# Called when player takes damage
+func refill():
+	current_value = min(current_value + refill_on_damage, max_value)
+	value = current_value

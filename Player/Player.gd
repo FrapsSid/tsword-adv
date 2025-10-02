@@ -1,5 +1,14 @@
 extends CharacterBody2D
 class_name Player
+var slowness = 1
+@export var player_id : int
+signal damaged(player, hp)
+@export var it : Item
+@export var ti : Item
+@onready var mazo = $UI/Health/TextureProgressBar
+func _ready() -> void:
+	pickup_item(it)
+	pickup_item(ti)
 
 # ----------------------------
 # Combat Settings
@@ -147,7 +156,7 @@ var attack_timer := 0.0
 # ----------------------------
 func handle_attack(delta: float) -> void:
 	if attack_timer > 0:
-		attack_timer -= delta
+		attack_timer -= (delta * slowness)
 		return
 
 	if attack_direction != AttackDir.NONE :
@@ -235,6 +244,30 @@ func apply_animation() -> void:
 
 func pickup_item(item: Item) -> void:
 	inventory.add_item(item)
+	
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/ODE.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Nails.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/ODE_NAIL.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/ODE.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Vampire.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/Yrav_ZAN.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/UFO.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Nails.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/Nail_NLO.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/UFO.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Vampire.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/ZAN_NLO.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/Jug.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Eye.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/WaterEye.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/Jug.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Heart.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/WaterHeart.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/Elfor.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Eye.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/Elec_Eye.tres"))
+		
+	if self.inventory.has_item(load("res://resources/Items/Individual Dummies/Elfor.tres")) and self.inventory.has_item(load("res://resources/Items/Individual Dummies/Heart.tres")):
+		inventory.add_item(load("res://resources/Items/Combos/combo_items/El_heart.tres"))
 
 func drop_item(item: Item) -> void:
 	inventory.remove_item(item)
@@ -274,7 +307,15 @@ func knockback_from(from: Vector2, scale: float = 1.0):
 	
 	knockback_timer = knockback_duration
 	
+		
 func take_damage(dmg: int):
 	if knockback_timer > 0:
 		return
 	hp = max(0, hp - dmg)
+	mazo.refill()
+	emit_signal("damaged", self, hp)
+
+
+func _on_texture_progress_bar_bar_empty_tick() -> void:
+	take_damage(1)
+	print("Player took damage because the bar is empty!")

@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://batcspasn3g11"]
+
+[ext_resource type="Script" uid="uid://4kchaug4ioux" path="res://Player/choice.gd" id="1_3kmpd"]
+[ext_resource type="Texture2D" uid="uid://cq6oitby36lv2" path="res://assets/sprites/items/ode.png" id="1_beels"]
+[ext_resource type="Texture2D" uid="uid://bj31o80y1emgv" path="res://assets/sprites/items/ufo_beam.png" id="2_isuxd"]
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="2_qp8vd"]
+[ext_resource type="Resource" uid="uid://cdms73o3a36xb" path="res://resources/Items/Individual Dummies/ODE.tres" id="3_x3ypf"]
+[ext_resource type="Resource" uid="uid://cawbrgxv4i0uk" path="res://resources/Items/Individual Dummies/UFO.tres" id="4_f7rds"]
+[ext_resource type="Texture2D" uid="uid://b5cvch81ecjub" path="res://resources/Items/textures/fried_nails.png" id="4_h8mob"]
+[ext_resource type="Texture2D" uid="uid://b5515r07ppjyv" path="res://assets/sprites/items/vampire_stash.png" id="5_6fswc"]
+[ext_resource type="Resource" uid="uid://cke6osrm1qt2n" path="res://resources/Items/Individual Dummies/Nails.tres" id="5_nyl3m"]
+[ext_resource type="Resource" uid="uid://dxgqlaxuj2ihd" path="res://resources/Items/Individual Dummies/Vampire.tres" id="6_qk3a2"]
+
+[node name="Choice" type="CanvasLayer"]
+script = ExtResource("1_3kmpd")
+group1_items = Array[ExtResource("2_qp8vd")]([ExtResource("3_x3ypf"), ExtResource("4_f7rds")])
+group2_items = Array[ExtResource("2_qp8vd")]([ExtResource("5_nyl3m"), ExtResource("6_qk3a2")])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.105882354, 0.16078432, 0.60784316, 0.1764706)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="all" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="left" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot1" type="Control" parent="all/left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left/Slot1"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 135.0
+offset_right = 563.0
+offset_bottom = 507.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_beels")
+
+[node name="CheckBox1" type="CheckBox" parent="all/left/Slot1"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 189.0
+offset_right = 450.0
+offset_bottom = 220.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Slot2" type="Control" parent="all/left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left/Slot2"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 108.0
+offset_right = 586.0
+offset_bottom = 548.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_isuxd")
+
+[node name="CheckBox2" type="CheckBox" parent="all/left/Slot2"]
+layout_mode = 0
+offset_left = 436.00003
+offset_top = 182.0
+offset_right = 460.00003
+offset_bottom = 213.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "
+"
+
+[node name="center_dummy" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.41
+
+[node name="left2" type="VBoxContainer" parent="all"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Slot1" type="Control" parent="all/left2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left2/Slot1"]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 135.0
+offset_right = 563.0
+offset_bottom = 507.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_h8mob")
+
+[node name="CheckBox3" type="CheckBox" parent="all/left2/Slot1"]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 189.0
+offset_right = 450.0
+offset_bottom = 220.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Slot2" type="Control" parent="all/left2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="all/left2/Slot2"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 108.0
+offset_right = 586.0
+offset_bottom = 548.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_6fswc")
+
+[node name="CheckBox4" type="CheckBox" parent="all/left2/Slot2"]
+layout_mode = 0
+offset_left = 436.00003
+offset_top = 182.0
+offset_right = 460.00003
+offset_bottom = 213.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "
+"
