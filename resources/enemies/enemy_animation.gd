@@ -6,7 +6,7 @@ class_name EnemyAnimation
 
 func _ready() -> void:
 	enemy.animation_changed.connect(_on_enemy_animation_changed)
-
+	
 func _process(_delta: float) -> void:
 	global_position = enemy.global_position
 

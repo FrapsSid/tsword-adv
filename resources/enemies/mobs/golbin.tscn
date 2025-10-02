@@ -43,7 +43,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Golbin" type="Node2D"]
+[node name="Golbin" type="Node2D" groups=["mobs"]]
 script = ExtResource("1_yokkg")
 
 [node name="EnemyTemplate" parent="." instance=ExtResource("1_5trky")]

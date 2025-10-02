@@ -43,7 +43,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Slime" type="Node2D"]
+[node name="Slime" type="Node2D" groups=["mobs"]]
 script = ExtResource("1_r25c5")
 
 [node name="EnemyTemplate" parent="." instance=ExtResource("1_avump")]

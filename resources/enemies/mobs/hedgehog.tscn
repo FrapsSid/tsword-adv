@@ -33,7 +33,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Hedgehog" type="Node2D"]
+[node name="Hedgehog" type="Node2D" groups=["mobs"]]
 script = ExtResource("1_vgubw")
 
 [node name="EnemyTemplate" parent="." instance=ExtResource("1_ej2cq")]

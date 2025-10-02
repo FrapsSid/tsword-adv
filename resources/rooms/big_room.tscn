@@ -16,8 +16,9 @@ tile_map_data = PackedByteArray("AADv/wkAAAAGAAIAAADw/wkAAAACAAEAAADx/wkAAAACAAE
 [node name="CollisionShape2D" parent="Room/CameraBounds" index="0"]
 scale = Vector2(2, 2)
 
-[node name="Exit" parent="Room/Doors" index="0"]
+[node name="Exit" parent="Room/Doors" index="0" node_paths=PackedStringArray("mobs_room")]
 position = Vector2(264.8, 111.2)
+mobs_room = NodePath("../../..")
 
 [node name="Enterance" parent="Room/Doors" index="1"]
 position = Vector2(-265.19998, 108.00001)
