@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var damage := 1
-@export var lifetime := 0.15  # seconds
+@export var lifetime := 0.2 # seconds
 @export var size := Vector2(30, 10)  # default hitbox size
 var direction := Vector2.RIGHT  # default attack direction
 

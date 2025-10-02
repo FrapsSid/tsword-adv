@@ -4,7 +4,8 @@ class_name EnemyTemplate
 @export var is_flying_mob := false
 # Enemy properties
 @export var speed: float = 150.0
-@export var acceleration := 0.5
+@export var acceleration := 5.0
+@export var deceleration := 5.0
 @export var turn_speed := 10.0
 @export var gravity: float = 980.0
 
@@ -17,6 +18,8 @@ class_name EnemyTemplate
 @export var stun_duration := 0.4
 
 var stun_timer := 0.0
+
+var velocity_target := Vector2.ZERO
 
 @export var damage = 1
 
@@ -36,14 +39,15 @@ func _ready():
 func _physics_process(delta: float):
 	if stun_timer > 0:
 		stun_timer -= delta
-	
-	handle_hurtbox()
-	
-	handle_flip(delta)
-	handle_state(delta)
+	if stun_timer <= 0:
+		handle_flip(delta)
 	if not is_flying_mob:
 		apply_gravity(delta)
 	
+	update_velocity(delta)
+	
+	handle_hurtbox()
+	handle_state(delta)
 	apply_animation()
 	move_and_slide()
 
@@ -51,7 +55,7 @@ func apply_gravity(delta: float) -> void:
 	velocity.y += gravity * delta
 
 func move_to(target_position: Vector2):
-	if stun_timer > 0 and stun_timer:
+	if stun_timer > 0 and stunnable:
 		return
 	if not is_flying_mob and not is_on_floor():
 		return
@@ -64,33 +68,46 @@ func move_to(target_position: Vector2):
 		desired_direction = (target_position - global_position).normalized()
 	
 	# Smoothly rotate toward target direction while maintaining speed
-	var current_speed: float
-	if not is_flying_mob:
-		current_speed = Vector2(velocity.x, 0).length()
+	#var current_speed: float
+	#if not is_flying_mob:
+		#current_speed = Vector2(velocity.x, 0).length()
+	#else:
+		#current_speed = velocity.length()
+	#if current_speed < 10:
+		#current_speed = speed  # If stationary, use max speed
+	#
+	#var new_direction = velocity.normalized().lerp(desired_direction, turn_speed * get_physics_process_delta_time()).normalized()
+	#velocity = new_direction * lerp(current_speed, speed, acceleration)
+	
+	velocity_target = desired_direction * speed
+
+func update_velocity(delta: float) -> void:
+
+	if velocity_target.x != 0:
+		velocity.x = move_toward(velocity.x, velocity_target.x, acceleration * speed * delta)
 	else:
-		current_speed = velocity.length()
-	if current_speed < 10:
-		current_speed = speed  # If stationary, use max speed
-	
-	var new_direction = velocity.normalized().lerp(desired_direction, turn_speed * get_physics_process_delta_time()).normalized()
-	velocity = new_direction * lerp(current_speed, speed, acceleration)
-	
+		velocity.x = move_toward(velocity.x, 0, deceleration * speed * delta)
+
+	if is_flying_mob:
+		if velocity_target.y != 0:
+			velocity.y = move_toward(velocity.y, velocity_target.y, acceleration * speed * delta)
+		else:
+			move_toward(velocity.y, 0, deceleration * speed * delta) 	
+
 func handle_hurtbox() -> void:
 	for body: Node2D in hitbox.get_overlapping_bodies():
-		print(body.name)
 		if body.is_in_group("player"):
 			body.take_damage(damage)
 			body.knockback_from(global_position)
 			
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print(body.name, "entered hitbox of", name)
 	if body is Player:
 		body.take_damage(damage)
 		body.knockback_from(global_position, attack_knockback_scale)
 
 func handle_state(_delta: float):
 	last_state = state
-	if velocity == Vector2.ZERO:
+	if velocity_target == Vector2.ZERO:
 		state = States.IDLE 
 	else:
 		state = States.MOVE
@@ -112,19 +129,22 @@ func apply_animation() -> void:
 # Combat System
 # ----------------------------
 
-func knockback_from(from: Vector2, scale: int = 1):
+func knockback_from(from: Vector2, scale: float = 1.0):
 	var vec = global_position - from
 	var direction = Vector2(vec.x, 0).normalized()
 	
-	velocity.x = direction.x * scale
-	velocity.y = knockback_vertical
-	
-	stun_timer = stun_duration
-	
-func knockback_in_dir(direction: Vector2, scale: int = 1):
 	velocity.x = direction.x * knockback_horizontal * scale
 	velocity.y = knockback_vertical
 	
+	velocity_target = Vector2.ZERO
+	stun_timer = stun_duration
+	
+func knockback_in_dir(direction: Vector2, scale: float = 1.0):
+	
+	velocity.x = direction.x * knockback_horizontal * scale
+	velocity.y = knockback_vertical
+	
+	velocity_target = Vector2.ZERO
 	stun_timer = stun_duration
 	
 func take_damage(dmg: int):

@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8s6llh6c8tfr"]
+[gd_scene load_steps=10 format=3 uid="uid://b8s6llh6c8tfr"]
 
 [ext_resource type="Script" uid="uid://dxj72iq4k4hib" path="res://resources/enemies/mobs/bee.gd" id="1_jxx3r"]
 [ext_resource type="PackedScene" uid="uid://mbkaefhe28ul" path="res://resources/enemies/enemy_template.tscn" id="2_82b8u"]
 [ext_resource type="Texture2D" uid="uid://cxynf738ghcpq" path="res://assets/sprites/enemies/bee1.png" id="3_jxx3r"]
 [ext_resource type="Texture2D" uid="uid://citfxgxwocmgd" path="res://assets/sprites/enemies/bee2.png" id="4_82b8u"]
 [ext_resource type="Script" uid="uid://ci2udwcrmrn1s" path="res://resources/enemies/enemy_animation.gd" id="5_71uxr"]
+[ext_resource type="Script" uid="uid://bv21k552bo0q6" path="res://resources/enemies/mobs/bee_muzzle.gd" id="6_anxvy"]
+[ext_resource type="PackedScene" uid="uid://b7ar4ncrisfep" path="res://resources/enemies/mobs/bee_projectile.tscn" id="7_do8bv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgubw"]
 resource_local_to_scene = true
@@ -42,6 +44,8 @@ script = ExtResource("1_jxx3r")
 [node name="EnemyTemplate" parent="." instance=ExtResource("2_82b8u")]
 scale = Vector2(2, 2)
 is_flying_mob = true
+knockback_horizontal = 250.0
+knockback_vertical = -100.0
 
 [node name="CollisionShape2D" parent="EnemyTemplate" index="0"]
 shape = SubResource("CapsuleShape2D_vgubw")
@@ -53,5 +57,9 @@ animation = &"Idle"
 script = ExtResource("5_71uxr")
 
 [node name="Target" type="Marker2D" parent="." groups=["target"]]
+
+[node name="Muzzle" type="Node2D" parent="."]
+script = ExtResource("6_anxvy")
+projectile_scene = ExtResource("7_do8bv")
 
 [editable path="EnemyTemplate"]

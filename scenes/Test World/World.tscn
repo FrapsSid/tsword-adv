@@ -58,20 +58,11 @@ position = Vector2(-197, -1)
 [node name="Bee" parent="BigRoom" instance=ExtResource("6_lp8fp")]
 position = Vector2(50, 11)
 
-[node name="EnemyTemplate" parent="BigRoom/Bee" index="0"]
-friction = 0.2
-gravity = 980.0
-max_hp = 3
-hp = 3
-knockbackable = true
-knockback_strength = 200.0
-knockback_vertical_boost = -150.0
-knockback_duration = 0.4
-knockback_other_scale = 2
-damage = 1
-
 [node name="CollisionShape2D" parent="BigRoom/Bee/EnemyTemplate" index="0"]
 shape = SubResource("CapsuleShape2D_tvfhq")
+
+[node name="Muzzle" parent="BigRoom/Bee" index="3"]
+aim_at_player = NodePath("../../../Rafael/Player")
 
 [node name="Target2" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
 position = Vector2(188, 0)
@@ -133,3 +124,7 @@ position = Vector2(311, -68)
 [editable path="BigRoom2/Room"]
 [editable path="BigRoom3"]
 [editable path="BigRoom3/Room"]
+[editable path="Rafael"]
+[editable path="Rafael/Player"]
+[editable path="Yamamoto"]
+[editable path="Yamamoto/Player"]

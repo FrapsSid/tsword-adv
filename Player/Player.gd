@@ -7,7 +7,7 @@ class_name Player
 @export var max_hp := 3
 @export var hp := 3
 @export var knockback_horizontal := 400.0
-@export var knockback_vertical := -150.0
+@export var knockback_vertical := -200.0
 @export var knockback_duration := 0.5
 
 var knockback_timer := 0.0
@@ -264,7 +264,7 @@ func _process(delta):
 # Combat System
 # ----------------------------
 
-func knockback_from(from: Vector2, scale: int = 1):
+func knockback_from(from: Vector2, scale: float = 1.0):
 	if knockback_timer > 0:
 		return
 	var vec = global_position - from
