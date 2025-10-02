@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://bmfv4eebd2k4x"]
+[gd_scene load_steps=11 format=4 uid="uid://bmfv4eebd2k4x"]
 
 [ext_resource type="Texture2D" uid="uid://bs34aqcca0wuv" path="res://assets/sprites/background/photo_2025-09-30_20-35-17.jpg" id="2_71sv1"]
 [ext_resource type="PackedScene" uid="uid://da7s5nahyfn25" path="res://resources/rooms/room.tscn" id="3_kfxt1"]
@@ -6,6 +6,18 @@
 [ext_resource type="Texture2D" uid="uid://bmwjbtxkvohr8" path="res://assets/sprites/background/photo_2025-09-30_20-35-16.jpg" id="4_3ftb5"]
 [ext_resource type="PackedScene" uid="uid://cccd2yd0umkt8" path="res://Player/Rafael.tscn" id="4_md3ak"]
 [ext_resource type="PackedScene" uid="uid://c4lo5wpd3tqga" path="res://Player/Yamamoto.tscn" id="5_71sv1"]
+[ext_resource type="PackedScene" uid="uid://dnbam4ncmnxt0" path="res://resources/enemies/mobs/hedgehog.tscn" id="5_wrp70"]
+[ext_resource type="PackedScene" uid="uid://b8s6llh6c8tfr" path="res://resources/enemies/mobs/bee.tscn" id="6_lp8fp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrp70"]
+resource_local_to_scene = true
+radius = 7.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tvfhq"]
+resource_local_to_scene = true
+radius = 7.0
+height = 14.0
 
 [node name="World" type="Node2D"]
 position = Vector2(147, 119)
@@ -33,6 +45,42 @@ tile_map_data = PackedByteArray("AAD//wQAAAABAAIAAAAAAAQAAAADAAIAAAD//wUAAAABAAI
 [node name="Exit" parent="BigRoom/Room/Doors" index="0" node_paths=PackedStringArray("target_room", "target_door")]
 target_room = NodePath("../../../../BigRoom2/Room")
 target_door = NodePath("../../../../BigRoom2/Room/Doors/Enterance")
+
+[node name="Hedgehog" parent="BigRoom" instance=ExtResource("5_wrp70")]
+position = Vector2(96, -57)
+
+[node name="CollisionShape2D" parent="BigRoom/Hedgehog/EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_wrp70")
+
+[node name="Marker2D2" type="Marker2D" parent="BigRoom/Hedgehog" groups=["target"]]
+position = Vector2(-197, -1)
+
+[node name="Bee" parent="BigRoom" instance=ExtResource("6_lp8fp")]
+position = Vector2(50, 11)
+
+[node name="EnemyTemplate" parent="BigRoom/Bee" index="0"]
+friction = 0.2
+gravity = 980.0
+max_hp = 3
+hp = 3
+knockbackable = true
+knockback_strength = 200.0
+knockback_vertical_boost = -150.0
+knockback_duration = 0.4
+knockback_other_scale = 2
+damage = 1
+
+[node name="CollisionShape2D" parent="BigRoom/Bee/EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_tvfhq")
+
+[node name="Target2" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
+position = Vector2(188, 0)
+
+[node name="Target3" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
+position = Vector2(162, 103)
+
+[node name="Target4" type="Marker2D" parent="BigRoom/Bee" groups=["target"]]
+position = Vector2(5, 101)
 
 [node name="BigRoom2" parent="." instance=ExtResource("3_md3ak")]
 position = Vector2(1240, -79)
@@ -69,14 +117,18 @@ scale = Vector2(17.559753, -0.11299307)
 position_smoothing_speed = 1.0
 
 [node name="Rafael" parent="." instance=ExtResource("4_md3ak")]
-position = Vector2(-63, 21)
+position = Vector2(476, -148)
 
 [node name="Yamamoto" parent="." instance=ExtResource("5_71sv1")]
-position = Vector2(31, 17)
+position = Vector2(311, -68)
 
 [editable path="Room"]
 [editable path="BigRoom"]
 [editable path="BigRoom/Room"]
+[editable path="BigRoom/Hedgehog"]
+[editable path="BigRoom/Hedgehog/EnemyTemplate"]
+[editable path="BigRoom/Bee"]
+[editable path="BigRoom/Bee/EnemyTemplate"]
 [editable path="BigRoom2"]
 [editable path="BigRoom2/Room"]
 [editable path="BigRoom3"]

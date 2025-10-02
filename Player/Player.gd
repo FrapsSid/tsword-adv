@@ -1,8 +1,16 @@
 extends CharacterBody2D
 class_name Player
 
+# ----------------------------
+# Combat Settings
+# ----------------------------
 @export var max_hp := 3
 @export var hp := 3
+@export var knockback_horizontal := 400.0
+@export var knockback_vertical := -150.0
+@export var knockback_duration := 0.5
+
+var knockback_timer := 0.0
 
 # ----------------------------
 # Movement Settings
@@ -46,12 +54,14 @@ var horizontal_input := 0.0
 # Physics process
 # ----------------------------
 func _physics_process(delta: float) -> void:
-
+	if knockback_timer > 0:
+		knockback_timer -= delta
 	handle_input(delta)
-	handle_horizontal(delta)
 	handle_jump(delta)
-	apply_gravity(delta)
 	handle_attack(delta)
+	
+	handle_horizontal(delta)
+	apply_gravity(delta)
 	move_and_slide()
 	
 	update_state()
@@ -171,17 +181,20 @@ func perform_attack(dir: int) -> void:
 func spawn_attack_hitbox(dir: int) -> void:
 	var hitbox := preload("res://resources/attack_hitbox/AttackHitbox.tscn").instantiate()
 	add_child(hitbox)
-
+	
 	match dir:
 		AttackDir.UP:
 			hitbox.position = Vector2(0, -16) # above player
 			hitbox.rotation_degrees = -90
+			hitbox.set_direction(Vector2.UP)
 		AttackDir.LEFT:
 			hitbox.position = Vector2(-16, 0)
 			hitbox.rotation_degrees = 180
+			hitbox.set_direction(Vector2.LEFT)
 		AttackDir.RIGHT:
 			hitbox.position = Vector2(16, 0)
 			hitbox.rotation_degrees = 0
+			hitbox.set_direction(Vector2.RIGHT)
 
 	
 	# Play attack animation
@@ -246,3 +259,22 @@ func _process(delta):
 			inventory_menu.close()
 		else:
 			inventory_menu.open()
+
+# ----------------------------
+# Combat System
+# ----------------------------
+
+func knockback_from(from: Vector2, scale: int = 1):
+	if knockback_timer > 0:
+		return
+	var vec = global_position - from
+	var direction = Vector2(vec.x, 0).normalized()
+	velocity.x = direction.x * knockback_horizontal * scale
+	velocity.y = knockback_vertical
+	
+	knockback_timer = knockback_duration
+	
+func take_damage(dmg: int):
+	if knockback_timer > 0:
+		return
+	hp = max(0, hp - dmg)

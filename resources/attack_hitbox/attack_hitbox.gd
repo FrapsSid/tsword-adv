@@ -8,21 +8,22 @@ var direction := Vector2.RIGHT  # default attack direction
 @onready var col_shape := $CollisionShape2D
 
 func _ready():
-	connect("body_entered", Callable(self, "_on_body_entered"))
-	_update_transform()
+	#_update_transform()
 	# Auto-remove after lifetime
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
 
 func _on_body_entered(body):
-	if body.is_in_group("enemies"):
+	print(body)
+	if body is EnemyTemplate:
 		body.take_damage(damage)
+		body.knockback_in_dir(direction)
 		queue_free()  # remove immediately after hitting
 
 # Set attack direction before adding as child
 func set_direction(dir: Vector2) -> void:
 	direction = dir.normalized()
-	_update_transform()
+	#_update_transform()
 
 func _update_transform() -> void:
 	# Scale and position relative to parent

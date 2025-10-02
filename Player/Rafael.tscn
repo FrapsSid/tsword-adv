@@ -82,6 +82,15 @@ sprite_frames = SubResource("SpriteFrames_x8s40")
 animation = &"Midair"
 
 [node name="Player" parent="." instance=ExtResource("1_aofry")]
+move_speed = null
+acceleration = null
+friction = null
+jump_height = null
+time_to_jump_apex = null
+max_jump_hold = null
+jump_cut_multiplier = null
+gravity_scale = null
+attack_cooldown = null
 
 [node name="Sprite2D" parent="Player" index="1"]
 visible = false
