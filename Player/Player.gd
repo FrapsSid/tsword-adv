@@ -1,8 +1,16 @@
 extends CharacterBody2D
 class_name Player
 
+# ----------------------------
+# Combat Settings
+# ----------------------------
 @export var max_hp := 3
 @export var hp := 3
+@export var knockback_horizontal := 400.0
+@export var knockback_vertical := -200.0
+@export var knockback_duration := 0.5
+
+var knockback_timer := 0.0
 
 # ----------------------------
 # Movement Settings
@@ -29,9 +37,10 @@ class_name Player
 # ----------------------------
 # State & input
 # ----------------------------
-enum States { IDLE, RUN, JUMP, FALL }
+enum States { IDLE, RUN, JUMP, FALL, MIDAIR, ATTACK }
 var state := States.IDLE
 var last_state := States.IDLE
+var last_flip_h := false
 var jump_hold_timer := 0.0
 var horizontal_input := 0.0
 
@@ -45,25 +54,15 @@ var horizontal_input := 0.0
 # Physics process
 # ----------------------------
 func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority():
-		handle_input(delta)
-		handle_horizontal(delta)
-		handle_jump(delta)
-		apply_gravity(delta)
-		move_and_slide()
-
-	# Sync to other peers
-
-	update_state()
-	apply_animation()
+	if knockback_timer > 0:
+		knockback_timer -= delta
+	handle_input(delta)
+	handle_jump(delta)
+	handle_attack(delta)
 	
-	if is_multiplayer_authority():
-		handle_input(delta)
-		handle_horizontal(delta)
-		handle_jump(delta)
-		apply_gravity(delta)
-		handle_attack(delta)
-		move_and_slide()
+	handle_horizontal(delta)
+	apply_gravity(delta)
+	move_and_slide()
 	
 	update_state()
 	apply_animation()
@@ -122,8 +121,10 @@ func apply_gravity(delta: float) -> void:
 # ----------------------------
 func update_state() -> void:
 	last_state = state
-	if is_on_floor():
-		if abs(velocity.x) < 0.1:
+	if attack_direction != AttackDir.NONE:
+		state = States.ATTACK
+	elif is_on_floor():
+		if horizontal_input == 0:
 			state = States.IDLE
 		else:
 			state = States.RUN
@@ -147,6 +148,10 @@ var attack_timer := 0.0
 func handle_attack(delta: float) -> void:
 	if attack_timer > 0:
 		attack_timer -= delta
+		return
+
+	if attack_direction != AttackDir.NONE :
+		attack_direction = AttackDir.NONE
 
 	if attack_timer <= 0 and Input.is_action_just_pressed("attack"):
 		# Determine direction
@@ -176,17 +181,20 @@ func perform_attack(dir: int) -> void:
 func spawn_attack_hitbox(dir: int) -> void:
 	var hitbox := preload("res://resources/attack_hitbox/AttackHitbox.tscn").instantiate()
 	add_child(hitbox)
-
+	
 	match dir:
 		AttackDir.UP:
 			hitbox.position = Vector2(0, -16) # above player
 			hitbox.rotation_degrees = -90
+			hitbox.set_direction(Vector2.UP)
 		AttackDir.LEFT:
 			hitbox.position = Vector2(-16, 0)
 			hitbox.rotation_degrees = 180
+			hitbox.set_direction(Vector2.LEFT)
 		AttackDir.RIGHT:
 			hitbox.position = Vector2(16, 0)
 			hitbox.rotation_degrees = 0
+			hitbox.set_direction(Vector2.RIGHT)
 
 	
 	# Play attack animation
@@ -200,8 +208,14 @@ func spawn_attack_hitbox(dir: int) -> void:
 		#AttackDir.RIGHT:
 			#anim_player.play("Attack_Right")
 
+signal animation_changed(state: int, flip_h: bool, attack_dir: int)
+
 func apply_animation() -> void:
-	pass
+	# Instead of playing animations here, just notify others
+	if state != last_state or sprite.flip_h != last_flip_h:
+		last_flip_h = sprite.flip_h
+		emit_signal("animation_changed", state, sprite.flip_h, attack_direction)
+
 	#if state != last_state:
 		#match state:
 			#States.IDLE:
@@ -245,3 +259,22 @@ func _process(delta):
 			inventory_menu.close()
 		else:
 			inventory_menu.open()
+
+# ----------------------------
+# Combat System
+# ----------------------------
+
+func knockback_from(from: Vector2, scale: float = 1.0):
+	if knockback_timer > 0:
+		return
+	var vec = global_position - from
+	var direction = Vector2(vec.x, 0).normalized()
+	velocity.x = direction.x * knockback_horizontal * scale
+	velocity.y = knockback_vertical
+	
+	knockback_timer = knockback_duration
+	
+func take_damage(dmg: int):
+	if knockback_timer > 0:
+		return
+	hp = max(0, hp - dmg)

@@ -1,21 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxaq0x5qeu1tj"]
+[gd_scene load_steps=4 format=3 uid="uid://cxaq0x5qeu1tj"]
 
 [ext_resource type="Script" uid="uid://hu76m24msi5" path="res://resources/attack_hitbox/attack_hitbox.gd" id="1_by12j"]
+[ext_resource type="Texture2D" uid="uid://1agmose8itaq" path="res://assets/sprites/particles/Punch.png" id="2_f0f86"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_by12j"]
-size = Vector2(44, 39)
+size = Vector2(32, 39)
 
 [node name="AttackHitbox" type="Area2D"]
 script = ExtResource("1_by12j")
-damage = null
-lifetime = null
-size = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22, -0.5)
+position = Vector2(16, 0)
 shape = SubResource("RectangleShape2D_by12j")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_top = -20.0
-offset_right = 44.0
-offset_bottom = 20.0
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(18, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_f0f86")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
