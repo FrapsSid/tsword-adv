@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3o3mvafjk6hv"]
+
+[ext_resource type="Script" uid="uid://c65m2dctol7pb" path="res://resources/enemies/mobs/ODbee.gd" id="1_ued0r"]
+[ext_resource type="PackedScene" uid="uid://mbkaefhe28ul" path="res://resources/enemies/enemy_template.tscn" id="2_d1ke8"]
+[ext_resource type="Texture2D" uid="uid://cxynf738ghcpq" path="res://assets/sprites/enemies/bee1.png" id="3_prd3v"]
+[ext_resource type="Texture2D" uid="uid://citfxgxwocmgd" path="res://assets/sprites/enemies/bee2.png" id="4_500il"]
+[ext_resource type="Script" uid="uid://ci2udwcrmrn1s" path="res://resources/enemies/enemy_animation.gd" id="5_3m8kb"]
+[ext_resource type="Script" uid="uid://bv21k552bo0q6" path="res://resources/enemies/mobs/bee_muzzle.gd" id="6_fuyy7"]
+[ext_resource type="PackedScene" uid="uid://b7ar4ncrisfep" path="res://resources/enemies/mobs/bee_projectile.tscn" id="7_n37lm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgubw"]
+resource_local_to_scene = true
+radius = 7.0
+height = 14.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ej2cq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_prd3v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_500il")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_prd3v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_500il")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
+
+[node name="ODbee" type="Node2D"]
+script = ExtResource("1_ued0r")
+speed = null
+damage = null
+
+[node name="EnemyTemplate" parent="." instance=ExtResource("2_d1ke8")]
+scale = Vector2(2, 2)
+is_flying_mob = true
+knockback_horizontal = 250.0
+knockback_vertical = -100.0
+
+[node name="CollisionShape2D" parent="EnemyTemplate" index="0"]
+shape = SubResource("CapsuleShape2D_vgubw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+sprite_frames = SubResource("SpriteFrames_ej2cq")
+animation = &"Idle"
+script = ExtResource("5_3m8kb")
+
+[node name="Target" type="Marker2D" parent="." groups=["target"]]
+
+[node name="Muzzle" type="Node2D" parent="."]
+script = ExtResource("6_fuyy7")
+projectile_scene = ExtResource("7_n37lm")
+
+[editable path="EnemyTemplate"]

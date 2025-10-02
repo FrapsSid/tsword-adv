@@ -314,8 +314,59 @@ func take_damage(dmg: int):
 	hp = max(0, hp - dmg)
 	mazo.refill()
 	emit_signal("damaged", self, hp)
+	if hp <= 0:
+		die()
 
 
 func _on_texture_progress_bar_bar_empty_tick() -> void:
 	take_damage(1)
 	print("Player took damage because the bar is empty!")
+
+var is_dead = false
+@onready var death_icon = $Deth
+
+func revive(at_position: Vector2, revive_hp: int = 3):
+	is_dead = false
+	get_parent().visible = true
+	hp = max_hp
+	emit_signal("damaged", self, max_hp)
+	global_position = at_position
+	set_collision_layer(1) # restore
+	set_collision_mask(1)
+	set_process(true)
+	set_physics_process(true)
+	print("Player revived!")
+	
+func die():
+	is_dead = true
+	velocity = Vector2.ZERO
+	state = States.IDLE
+	print("Player died!")
+
+	# disable collision so they don't interfere with gameplay
+	set_collision_layer(0)
+	set_collision_mask(0)
+
+	# hide or play death animation
+
+	# optionally disable input
+	set_process(false)
+	set_physics_process(false)
+	
+	# show death icon
+	death_icon.visible = true
+	death_icon.rotation_degrees = 0
+
+	# run the wobble animation
+	_play_wobble()
+	
+
+func _play_wobble() -> void:
+	await get_tree().create_timer(0.2).timeout
+	death_icon.rotation_degrees = -30
+	await get_tree().create_timer(0.2).timeout
+	death_icon.rotation_degrees = 30
+	await get_tree().create_timer(0.2).timeout
+	death_icon.rotation_degrees = 0
+	death_icon.visible = false
+	get_parent().visible = false

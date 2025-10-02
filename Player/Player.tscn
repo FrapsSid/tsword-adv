@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqeqis4qqoeeg"]
+[gd_scene load_steps=10 format=3 uid="uid://bqeqis4qqoeeg"]
 
 [ext_resource type="Script" uid="uid://bes7g0aakaw1s" path="res://Player/Player.gd" id="1_53s6u"]
 [ext_resource type="Texture2D" uid="uid://blyuwsufvvwcj" path="res://Player/Resources/Player.png" id="2_46bdp"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://n8m1rgjex2uw" path="res://Player/Resources/sound.wav" id="3_frs6n"]
 [ext_resource type="Resource" uid="uid://byr56onqr5vbc" path="res://resources/Items/Combos/combo_items/ZAN_NLO.tres" id="3_s1rgi"]
 [ext_resource type="PackedScene" uid="uid://6pandr8ui1st" path="res://Player/InventoryMenu.tscn" id="4_ddoul"]
+[ext_resource type="Texture2D" uid="uid://b26peii3frspi" path="res://Player/Resources/5399980592654842787.jpg" id="8_j23h2"]
 [ext_resource type="PackedScene" uid="uid://ofgshyjrkmw4" path="res://Player/Health.tscn" id="8_s1rgi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tok1r"]
@@ -42,6 +43,12 @@ player = NodePath("../../..")
 [node name="InventoryMenu" parent="UI" node_paths=PackedStringArray("player") instance=ExtResource("4_ddoul")]
 visible = false
 player = NodePath("../..")
+
+[node name="Deth" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(9.536743e-07, -3.9999995)
+scale = Vector2(0.070826665, 0.07587721)
+texture = ExtResource("8_j23h2")
 
 [connection signal="bar_empty_tick" from="UI/Health/TextureProgressBar" to="." method="_on_texture_progress_bar_bar_empty_tick"]
 
