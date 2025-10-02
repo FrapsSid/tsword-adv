@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cdms73o3a36xb"]
+
+[ext_resource type="Texture2D" uid="uid://r8k3w1s3lnxg" path="res://resources/Items/textures/ode.png" id="1_87lve"]
+[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_bpq01"]
+
+[resource]
+script = ExtResource("1_bpq01")
+icon = ExtResource("1_87lve")
+metadata/_custom_type_script = "uid://b3hrdl4uub34p"

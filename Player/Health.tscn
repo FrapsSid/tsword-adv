@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://ofgshyjrkmw4"]
+
+[ext_resource type="Script" uid="uid://bafgi3sdc6vee" path="res://Player/health.gd" id="1_5mkej"]
+[ext_resource type="Texture2D" uid="uid://c0j8bjaqllrky" path="res://Player/Resources/full.png" id="2_pnb2c"]
+[ext_resource type="Texture2D" uid="uid://hfbedeyofu88" path="res://Player/Resources/em.png" id="3_i6fdf"]
+[ext_resource type="Texture2D" uid="uid://cfan34buvsh17" path="res://Player/Resources/sphere1.png" id="4_coirk"]
+[ext_resource type="Texture2D" uid="uid://btbn3xfsb6lgm" path="res://Player/Resources/sphere2.png" id="5_bttwa"]
+[ext_resource type="Script" uid="uid://n5on4tr5su6w" path="res://Player/mazo.gd" id="6_bttwa"]
+
+[node name="Health" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 159.0
+offset_top = -124.0
+offset_right = 1607.0
+offset_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5mkej")
+heart_full = ExtResource("2_pnb2c")
+heart_empty = ExtResource("3_i6fdf")
+
+[node name="Heart1" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_pnb2c")
+
+[node name="Heart2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_pnb2c")
+
+[node name="Heart3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_pnb2c")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 836.0
+offset_top = -1073.0
+offset_right = 1316.0
+offset_bottom = -593.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+max_value = 30.0
+value = 2.0
+fill_mode = 3
+texture_over = ExtResource("4_coirk")
+texture_progress = ExtResource("5_bttwa")
+script = ExtResource("6_bttwa")

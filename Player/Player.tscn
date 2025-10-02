@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqeqis4qqoeeg"]
+[gd_scene load_steps=9 format=3 uid="uid://bqeqis4qqoeeg"]
 
 [ext_resource type="Script" uid="uid://bes7g0aakaw1s" path="res://Player/Player.gd" id="1_53s6u"]
+[ext_resource type="Resource" uid="uid://bncltwv6e8gkq" path="res://resources/Items/Combos/combo_items/WaterHeart.tres" id="2_6ysni"]
 [ext_resource type="Texture2D" uid="uid://blyuwsufvvwcj" path="res://Player/Resources/Player.png" id="2_46bdp"]
 [ext_resource type="AudioStream" uid="uid://n8m1rgjex2uw" path="res://Player/Resources/sound.wav" id="3_frs6n"]
+[ext_resource type="Resource" uid="uid://br6o3adu0kju6" path="res://resources/Items/Combos/combo_items/Nail_NLO.tres" id="3_vlldt"]
 [ext_resource type="PackedScene" uid="uid://6pandr8ui1st" path="res://Player/InventoryMenu.tscn" id="4_ddoul"]
+[ext_resource type="PackedScene" uid="uid://ofgshyjrkmw4" path="res://Player/Health.tscn" id="7_vlldt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tok1r"]
 radius = 8.333333
@@ -11,6 +14,8 @@ height = 31.333334
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_53s6u")
+it = ExtResource("2_6ysni")
+ti = ExtResource("3_vlldt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tok1r")
@@ -29,10 +34,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Health" parent="UI" instance=ExtResource("7_vlldt")]
+
+[node name="TextureProgressBar" parent="UI/Health" index="1" node_paths=PackedStringArray("player")]
+player = NodePath("../../..")
+
 [node name="InventoryMenu" parent="UI" node_paths=PackedStringArray("player") instance=ExtResource("4_ddoul")]
-layout_mode = 1
-offset_left = -29.0
-offset_top = -262.0
-offset_right = -29.0
-offset_bottom = -262.0
 player = NodePath("../..")
+
+[editable path="UI/Health"]

@@ -1,5 +1,8 @@
+#Player.gd
 extends CharacterBody2D
 class_name Player
+
+@export var player_id := 1
 
 @export var max_hp := 3
 @export var hp := 3
@@ -35,6 +38,14 @@ var last_state := States.IDLE
 var jump_hold_timer := 0.0
 var horizontal_input := 0.0
 
+@export var it : Item
+@export var ti : Item
+@export var titi : Item
+func _ready() -> void:
+	pickup_item(it)
+	pickup_item(ti)
+	pickup_item(titi)
+
 # ----------------------------
 # Nodes
 # ----------------------------
@@ -52,19 +63,6 @@ func _physics_process(delta: float) -> void:
 		apply_gravity(delta)
 		move_and_slide()
 
-	# Sync to other peers
-
-	update_state()
-	apply_animation()
-	
-	if is_multiplayer_authority():
-		handle_input(delta)
-		handle_horizontal(delta)
-		handle_jump(delta)
-		apply_gravity(delta)
-		handle_attack(delta)
-		move_and_slide()
-	
 	update_state()
 	apply_animation()
 
@@ -224,18 +222,6 @@ func pickup_item(item: Item) -> void:
 
 func drop_item(item: Item) -> void:
 	inventory.remove_item(item)
-
-var active_effects: Array[ItemEffect] = []
-
-func add_item_effect(effect: ItemEffect):
-	if effect not in active_effects:
-		active_effects.append(effect)
-		effect.apply(self)
-
-func remove_item_effect(effect: ItemEffect):
-	if effect in active_effects:
-		active_effects.erase(effect)
-		effect.remove(self)
 		
 @onready var inventory_menu: InventoryMenu = $UI/InventoryMenu
 
