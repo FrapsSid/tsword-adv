@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://djhg854m3u3vl"]
-
-[ext_resource type="Texture2D" uid="uid://cgtg43yuh8lt7" path="res://assets/sprites/particles/boom.png" id="1_sjj06"]
-
-[node name="Death" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("1_sjj06")

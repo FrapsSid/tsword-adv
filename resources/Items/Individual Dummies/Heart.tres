@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://k7mtcn61al56"]
-
-[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_gdi7c"]
-[ext_resource type="Texture2D" uid="uid://co0fki300lj3h" path="res://resources/Items/textures/ice_giant_heart.png" id="1_hb862"]
-
-[resource]
-script = ExtResource("1_gdi7c")
-icon = ExtResource("1_hb862")
-metadata/_custom_type_script = "uid://b3hrdl4uub34p"

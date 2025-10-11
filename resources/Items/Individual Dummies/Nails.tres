@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cke6osrm1qt2n"]
-
-[ext_resource type="Script" uid="uid://b3hrdl4uub34p" path="res://resources/Items/Item.gd" id="1_e6qlb"]
-[ext_resource type="Texture2D" uid="uid://b5cvch81ecjub" path="res://resources/Items/textures/fried_nails.png" id="1_xxt7d"]
-
-[resource]
-script = ExtResource("1_e6qlb")
-icon = ExtResource("1_xxt7d")
-metadata/_custom_type_script = "uid://b3hrdl4uub34p"
