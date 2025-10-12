@@ -2,7 +2,9 @@
 
 # NO MORE SINERGIES!
 
-**RU**
+[***EN version*** ⬇️](#en)
+
+# RU
 
 ## Об игре
 
@@ -14,17 +16,18 @@
 ## Соцсети
 - У нашего проекта есть *телеграмм канал*: https://t.me/no_more_synergies. Переходите по ссылке и следите за новостями!
 
-## Техническая информация
-##### Установка:
+## Технические требования:
+
+### Установка:
 - О том как установить игру на своё устройство вы можете почитать по этой ссылке - https://github.com/FrapsSid/tsword-adv/blob/Sentaru's-branch/Launch%20instructions.md
 
 ##### Требования для игры:
-- Для игры необходимо два игрока
+- На данный момент игра доступна для платформы Windows.
+- Для игры необходимо два игрока.
 - Также, необходимо иметь два контроллера для управления персонажами. Управление контроллером можете почитать по этой ссылке - https://github.com/FrapsSid/tsword-adv/blob/Sentaru's-branch/Control.md
-- Технические требования нельзя точно определить, так как игра находиться на ранних стадиях разработки, однако можно однозначно сказать, что она не требовательная.
 
 -----
-**EN**
+# EN
 
 ## About the Game
 
@@ -35,11 +38,12 @@
 ## Social Media
 - Our project has a *Telegram channel*: https://t.me/no_more_synergies. Follow the link and stay tuned for more news!
 
-## Technical Information
-##### Installation:
+## Technical requirements:
+
+### Installation:
 - You can learn how to install the game on your device at this link - https://github.com/FrapsSid/tsword-adv/blob/Sentaru's-branch/Launch%20instructions.md
 
 ##### Game Requirements:
+- The game is currently available for the Windows platform.
 - Two players are required to play.
 - You also need two controllers to control the characters. You can learn about controller controls at this link - https://github.com/FrapsSid/tsword-adv/blob/Sentaru's-branch/Control.md
-- The technical requirements cannot be determined precisely, as the game is in the early stages of development, but it is safe to say that it is not demanding.
