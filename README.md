@@ -1,6 +1,7 @@
 ***README/ПРОЧИТАЙ МЕНЯ***
 
 # NO MORE SINERGIES!
+![Логотип проекта](https://github.com/FrapsSid/tsword-adv/blob/main/assets/images/No%20more%20sinergies!%20_%20The%20hat.png)
 
 [***EN version*** ⬇️](#en)
 
